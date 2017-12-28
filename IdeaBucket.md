@@ -1,5 +1,5 @@
 # Cel:
-Celem projektu jest stworzenie systemu wspomagającego produktywność (oraz wygodę) interakcji z komputerem przy pomocy komend głosowych. Ewentualny dodatkowy punkt to jest dodanie całego zbioru funkcj, który ma na celu ułatwienie osobom starszym korzystanie z magii internetu.
+Celem projektu jest stworzenie systemu wspomagającego produktywność (oraz wygodę) interakcji z komputerem przy pomocy komend głosowych. Ewentualny dodatkowy punkt to jest dodanie całego zbioru funkcji, który ma na celu ułatwienie osobom starszym korzystanie z magii internetu.
 
 # To do list:
 1. Poważne decyzje dotyczące działania i konstrukcji całego projektu.
@@ -16,7 +16,7 @@ Celem projektu jest stworzenie systemu wspomagającego produktywność (oraz wyg
   Plusy - możliwość użycia Sarmaty i systemu tts, który dostaniemy od zespołu dsp; brak potrzeby przejmowania się polskimi akcentami przy mówieniu po angielsku; 
   Minusy - ograniczenia systemu sarmata w porównaniu do angielskich; łatwiejsze układanie zwięzłych komend; Mniejsza mozliwość przerobienia prezentowania tego w szerszym zakresie (ROBIMY Z TEGO START-UP!!! GAŁKA BĘDZIE DUMNY!!!)
   
-2. Imie systemu - Musi być zwięzłe i wygodne do wymawiania, charakterystyczne z punktu widzenia językowego, żeby znie było mylone z komendami, przyjazne dla użytkownika (zawsze pewne niedociągnięcia są luźniej traktowane w momencie kiedy system ma jakąś osobowość) i zawierające się w słowniku systemu rozpoznawania mowy, który będziemy uzywać.
+2. Imię systemu - Musi być zwięzłe i wygodne do wymawiania, charakterystyczne z punktu widzenia językowego, żeby znie było mylone z komendami, przyjazne dla użytkownika (zawsze pewne niedociągnięcia są luźniej traktowane w momencie kiedy system ma jakąś osobowość) i zawierające się w słowniku systemu rozpoznawania mowy, który będziemy uzywać.
 
 3. Aktywacja systemu - Najpierw można uznać, że będzimy podawać komendę przy włączeniu programu, żeby zobaczyć czy działa ale docelowo coś trzeba stworyć. Skrót klawiszowy trochę psuje cały sens systemu, który ułatwia rzeczy bo wtedy po prostu możnaby zmpować komendy na skróty i działałoby lepiej. Aktywacja głosowa byłaby fajna ale jest strasznie banalnym koncepcyjnie wyjściem, który wykorzystują wszyscy, więc warto byłoby sie zastanowić czy nie wymyslimy jeszcze czegoś, żeby to usprawnić (Tak... chce być lepszy od amazonu i googla). Jednocześnie będzie to trochę zabawy z implementacją tak żeby to działało a jednocześnie nie mordowało komputera i łącza wysyłając ciągle nagrywane audio na serwer do rozpoznania (wykorzystanie siecie neuronowej z CipherRecognizer do rozpoznawania wewnąrz programu komendy startowej po której następuje wysyłanie dalszego audio?)
 
@@ -52,3 +52,5 @@ Celem projektu jest stworzenie systemu wspomagającego produktywność (oraz wyg
  
 ## Przewidywane problemy:
 1. Czas reakcji systemu - nagrywanie, łączenie się z serwerem, wysyłanie pliku audio, czekanie na wynik, rozpatrywanie czy coś jest komendą, wykonywanie komendy, wysyłanie tekstu do tts, otrzymywanie pliku audio, odtworzenie go - to wszystko nie może trwać 5 sekund jeżeli to ma mieć jakikolwiek sens.
+
+2. TTS - O ile jest to fajna opcja projektowa, żeby zrobić coś bardziej imponującego to łatwiej byłoby nagrać po prostu wszystkie odpowiedzi i je odgrywać.
