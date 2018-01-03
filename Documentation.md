@@ -1,6 +1,6 @@
 # Voice Commander
+Jan Jasiński (lider), 
 Jan Wilczek
-Jan Jasiński
 ## Cel:
 Celem projektu jest stworzenie systemu wspomagającego produktywność (oraz wygodę) interakcji z komputerem poprzez wykorzystanie komend głosowych. Dodatkowo system taki użyty może zostać przez osoby starsze lub niepełnosprawne aby usprawnić obsługę komputera.
 
