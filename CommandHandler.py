@@ -9,7 +9,9 @@ class CommandHandler:
     def __init__(self):
         # Put these into a seperate "Paths" module (maybe a JSON file?)
         self.chrome_path = 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe'
-        self.edge_path = 'C:/Windows/explorer.exe'
+        self.edge_path = 'C:\Windows\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdge.exe' # doesn't work
+        self.notepad_path = 'notepad.exe'
+        self.explorer_path = 'C:/Windows/explorer.exe'
         self.opera_path = ''
 
     def handle(self, command, *args, **kwargs):
@@ -29,6 +31,10 @@ class CommandHandler:
                     app.start(self.opera_path)
                 elif args[0]=='edge' or args[0]=='edge.exe':
                     app.start(self.edge_path)
+                elif args[0]=='notepad':
+                    app.start(self.notepad_path)
+                elif args[0]=='explorer':
+                    app.start(self.explorer_path)
                 else:
                     raise NotImplementedError('Given program handling not implemented!')
             else:
