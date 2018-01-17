@@ -10,11 +10,8 @@ class CommandRecorder:
         self.CHANNELS = 2
         self.RATE = 44100
         self.CHUNK = 1024
-        self.RECORD_SECONDS = 5
 
-    def startRecording(self, filename="command.wav"):
-        WAVE_OUTPUT_FILENAME = filename
-
+    def record_for_seconds(self, filename="command.wav", record_seconds=5):
         audio = pyaudio.PyAudio()
 
         # start Recording
@@ -24,9 +21,18 @@ class CommandRecorder:
         print("recording...")
         frames = []
 
-        for i in range(0, int(self.RATE / self.CHUNK * self.RECORD_SECONDS)):
-            data = stream.read(self.CHUNK)
-            frames.append(data)
+        if record_seconds > 0:
+            for i in range(0, int(self.RATE / self.CHUNK * record_seconds)):
+                data = stream.read(self.CHUNK)
+                frames.append(data)
+        else:   # dictation recording
+            try:
+                while True:
+                    data = stream.read(self.CHUNK)
+                    frames.append(data)
+            except KeyboardInterrupt:
+                pass
+
         print("finished recording")
 
         # stop Recording
@@ -34,7 +40,7 @@ class CommandRecorder:
         stream.close()
         audio.terminate()
 
-        waveFile = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+        waveFile = wave.open(filename, 'wb')
         waveFile.setnchannels(self.CHANNELS)
         waveFile.setsampwidth(audio.get_sample_size(self.FORMAT))
         waveFile.setframerate(self.RATE)

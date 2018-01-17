@@ -11,7 +11,7 @@ from win32api import GetCursorPos
 class CommandHandler:
 
     def __init__(self):
-        # Put these into a seperate "Paths" module (maybe a JSON file?)
+        # TODO: Put these into a seperate "Paths" module (maybe a JSON file?)
         self.chrome_path = 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe'
         self.edge_path = 'C:\Windows\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdge.exe' # doesn't work
         self.notepad_path = 'notepad.exe'
@@ -28,13 +28,14 @@ class CommandHandler:
         if command=="execute":
             self.__execute(args)
         elif command=="start_dictation":    # not implemented
+            raise NotImplementedError('Dictation not implemented')
             dictation_recorder = CommandRecorder()
-            dictation_recorder.startRecording("dictation.wav")
+            dictation_recorder.record_for_seconds(filename="dictation.wav", record_seconds=-1)
             # additional code
         elif command=="home":
             SendKeys('{HOME}')
         elif command=="desktop":
-            SendKeys('{LWIN}d')
+            SendKeys('{LWIN}d')  # does it work?
         elif command=="up":
             scroll(coords=GetCursorPos(), wheel_dist=10)
         elif command=="down":
@@ -61,6 +62,8 @@ class CommandHandler:
                 SendKeys(str(args[0]) + '{ENTER}')
         elif command=="close":
             SendKeys('%{F4}')
+        else:
+            raise NotImplementedError('Unknown command!')
 
     def __execute(self, args):
         if args is not None:

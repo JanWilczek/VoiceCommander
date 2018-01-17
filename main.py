@@ -7,7 +7,7 @@ from CommandRecorder import CommandRecorder
 #from CommandHandler import CommandHandler
 
 def record_and_handle_command():
-    command_recorder.startRecording("command" + str(listen_for_commands.counter) + ".wav")
+    command_recorder.record_for_seconds("command" + str(listen_for_commands.counter) + ".wav")
     # Here comes handling the recording in 'command.wav'
     # (response/command, args) = ...
     # handler = CommandHandler()
