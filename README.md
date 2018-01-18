@@ -1,2 +1,3 @@
-# PotatoSpeech-for-Windows
+# VoiceCommander
+
 Windows speech commands
