@@ -25,7 +25,7 @@ class CommandHandler:
         :param kwargs: optional command kwargs
         """
 
-        if command=="execute":
+        if command=="run":
             self.__execute(args)
         elif command=="start_dictation":    # not implemented
             raise NotImplementedError('Dictation not implemented')

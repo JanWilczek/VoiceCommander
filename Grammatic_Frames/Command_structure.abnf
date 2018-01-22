@@ -1,0 +1,32 @@
+#ABNF 1.0;
+language pl-pl;
+mode voice;
+root $root;
+tag-format <semantics/1.0-literals>;
+
+
+$root = $action [$program] [$courtesy];
+
+
+$action =   (włącz | odpal | puść ){run}|
+            rozpocznij {begin}|
+            góra {up} |
+            dół {down} |
+            przejdź na {go to} |
+            zaznacz {select} |
+            (kopiuj | skopiuj) {copy} |
+            wklej {paste} |
+            zapisz {save} |
+            cofnij {undo} |
+            zgoogluje {google_action} |
+            zamknij {close};
+
+
+$program =  (opera | operę) {opera} |
+            (chrome | chroma) {chrome} |
+            edge {edge} |
+            google {google} |
+            notatnik {notepad};
+
+
+$courtesy = proszę;

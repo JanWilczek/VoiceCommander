@@ -4,14 +4,19 @@
 from tkinter import *
 from tkinter import ttk
 from CommandRecorder import CommandRecorder
-#from CommandHandler import CommandHandler
+from CommandRecognizer import recognize
+from CommandHandler import CommandHandler
 
 def record_and_handle_command():
     command_recorder.record_for_seconds("command" + str(listen_for_commands.counter) + ".wav")
+    state_label_text.set("Recognizing command")
+    root.update_idletasks()
+    command, args = recognize("command" + str(listen_for_commands.counter) + ".wav")
     # Here comes handling the recording in 'command.wav'
     # (response/command, args) = ...
-    # handler = CommandHandler()
-    # handler.handle(command,args)
+    if command != 'NO_MATCH':
+        handler = CommandHandler()
+        handler.handle(command, args)
 
 def listen_for_commands(event):
     if 'counter' not in listen_for_commands.__dict__:
