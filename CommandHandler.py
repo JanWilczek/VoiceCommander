@@ -1,12 +1,9 @@
-import admin
-if not admin.isUserAdmin():
-    admin.runAsAdmin()
-
 from pywinauto.application import Application
 from pywinauto.keyboard import SendKeys
 from pywinauto.mouse import scroll
 from CommandRecorder import CommandRecorder
 from win32api import GetCursorPos
+
 
 class CommandHandler:
 
@@ -25,34 +22,34 @@ class CommandHandler:
         :param kwargs: optional command kwargs
         """
 
-        if command=="run":
+        if command == "run":
             self.__execute(args)
-        elif command=="start_dictation":    # not implemented
+        elif command == "start_dictation":    # not implemented
             raise NotImplementedError('Dictation not implemented')
             dictation_recorder = CommandRecorder()
             dictation_recorder.record_for_seconds(filename="dictation.wav", record_seconds=-1)
             # additional code
-        elif command=="home":
+        elif command == "home":
             SendKeys('{HOME}')
-        elif command=="desktop":
+        elif command == "desktop":
             SendKeys('{LWIN}d')  # does it work?
-        elif command=="up":
+        elif command == "up":
             scroll(coords=GetCursorPos(), wheel_dist=10)
-        elif command=="down":
+        elif command == "down":
             scroll(coords=GetCursorPos(), wheel_dist=-10)
-        elif command=="select_all":
+        elif command == "select_all":
             SendKeys('^a')
-        elif command=="copy":
+        elif command == "copy":
             SendKeys('^c')
-        elif command=="paste":
+        elif command == "paste":
             SendKeys('^v')
         elif command == "save":
             SendKeys('^s')
             if args is not None:
                 SendKeys(str(args[0]) + '{ENTER}')
-        elif command=="undo":
+        elif command == "undo":
             SendKeys('^z')
-        elif command=="google":     # WIP
+        elif command == "google":     # WIP
              app = Application(backend='uia')
              app.start(self.chrome_path + ' --force-renderer-accessibility https://www.google.com')
              #SendKeys("google.com{ENTER}")

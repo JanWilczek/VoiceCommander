@@ -1,15 +1,16 @@
 from auditok import ADSFactory, AudioEnergyValidator, StreamTokenizer, player_for
 import wave
 
+
 def echo(data, start, end):
-   print("Acoustic activity at: {0}--{1}".format(start, end))
-   waveFile = wave.open("test.wav", 'wb')
-   waveFile.setnchannels(1)
-   waveFile.setsampwidth(asource.get_sample_width())
-   waveFile.setframerate(16000)
-   waveFile.writeframes(b''.join(data))
-   waveFile.close()
-   #player.play(''.join(data))
+    print("Acoustic activity at: {0}--{1}".format(start, end))
+    wave_file = wave.open("test.wav", 'wb')
+    wave_file.setnchannels(1)
+    wave_file.setsampwidth(asource.get_sample_width())
+    wave_file.setframerate(16000)
+    wave_file.writeframes(b''.join(data))
+    wave_file.close()
+
 
 '''
 # record = True so that we'll be able to rewind the source.
