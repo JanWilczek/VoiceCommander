@@ -6,12 +6,13 @@ from imports.techmo_sarmata_pyclient.service.sarmata_settings import SarmataSett
 from imports.techmo_sarmata_pyclient.service.sarmata_recognize import SarmataRecognizer
 from imports.techmo_sarmata_pyclient.service.asr_service_pb2 import ResponseStatus
 from address_provider import AddressProvider
+from logger import log, error_log
 import os
 
 
 def print_results(responses):
     if responses is None:
-        print("Empty results - None object")
+        log("Empty results - None object")
         return
 
     for response in responses:
@@ -19,30 +20,30 @@ def print_results(responses):
             print("Empty results - skipping response")
             continue
 
-        print("Received response with status: {}".format(ResponseStatus.Name(response.status)))
+        log("Received response with status: {}".format(ResponseStatus.Name(response.status)))
 
         if response.error:
-            print("[ERROR]: {}".format(response.error))
+            error_log("[ERROR]: {}".format(response.error))
 
         for n, res in enumerate(response.results):
             transcript = " ".join([word.transcript for word in res.words])
-            print("[{}.] {} /{}/ ({})".format(n, transcript, res.semantic_interpretation, res.confidence))
+            log("[{}.] {} /{}/ ({})".format(n, transcript, res.semantic_interpretation, res.confidence))
 
 def print_again(responses):
     info = ["NO_MATCH", 0]
     confidence = 0
     if responses is None:
-        print("Empty results - None object")
+        log("Empty results - None object")
         return info
 
     for response in responses:
         if response is None:
-            print("Empty results - skipping response")
+            log("Empty results - skipping response")
             continue
         if ResponseStatus.Name(response.status) == "NO_MATCH":
             return info
         if response.error:
-            print("[ERROR]: {}".format(response.error))
+            log("[ERROR]: {}".format(response.error))
 
         for n, res in enumerate(response.results):
             if res.confidence > confidence:
@@ -68,7 +69,7 @@ def recognize(filename):
 
     tmp = print_again(results)
     semantic = tmp[0]
-    print(semantic + " :Sarmata ")
+    log(semantic + " :Sarmata ")
 
     result = semantic.split(" ")
     if len(result) == 1:

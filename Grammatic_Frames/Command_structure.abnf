@@ -19,7 +19,8 @@ $action =   (włącz | odpal | puść ){run}|
             zapisz {save} |
             cofnij {undo} |
             zgoogluje {google_action} |
-            zamknij {close};
+            zamknij {close} |
+            czy joda był żydem {yoda};
 
 
 $program =  (opera | operę) {opera} |

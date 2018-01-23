@@ -4,7 +4,6 @@ from pywinauto.mouse import scroll
 from CommandRecorder import CommandRecorder
 from win32api import GetCursorPos
 
-
 class CommandHandler:
 
     def __init__(self):
@@ -28,6 +27,7 @@ class CommandHandler:
             raise NotImplementedError('Dictation not implemented')
             dictation_recorder = CommandRecorder()
             dictation_recorder.record_for_seconds(filename="dictation.wav", record_seconds=-1)
+            begin_dictation()
             # additional code
         elif command == "home":
             SendKeys('{HOME}')
@@ -57,8 +57,11 @@ class CommandHandler:
                 app_new_tab = Application(backend='uia').connect(path='chrome.exe', title_re='New Tab')
                 #app_new_tab.window().type_keys(str(args[0]) + '{ENTER}')
                 SendKeys(str(args[0]) + '{ENTER}')
-        elif command=="close":
+        elif command == "close":
             SendKeys('%{F4}')
+        elif command == "yoda":
+            app = Application(backend='uia')
+            app.start(self.chrome_path + ' --force-renderer-accessibility https://youtu.be/bYRYHLUNEs4?t=18')
         else:
             raise NotImplementedError('Unknown command!')
 
@@ -80,3 +83,4 @@ class CommandHandler:
                 raise NotImplementedError('Given program handling not implemented!')
         else:
             raise Exception('Specify the program to launch!')
+

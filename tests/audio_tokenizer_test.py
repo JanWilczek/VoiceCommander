@@ -29,7 +29,7 @@ asource = ADSFactory.ads(sampling_rate=16000, sample_width=2, channels=1, frames
                          block_dur=0.01)
 
 validator = AudioEnergyValidator(sample_width=asource.get_sample_width(), energy_threshold=50)
-tokenizer = StreamTokenizer(validator=validator, min_length=100, max_length=500, max_continuous_silence=30)
+tokenizer = StreamTokenizer(validator=validator, min_length=100, max_continuous_silence=500)
 
 asource.open()
 

@@ -4,8 +4,8 @@ from CommandRecognizer import recognize
 from CommandHandler import CommandHandler
 from auditok import ADSFactory, AudioEnergyValidator, StreamTokenizer
 from logger import log
+from wave_utils import save_wave_file
 from os import remove
-import wave
 import threading
 
 
@@ -26,20 +26,13 @@ def listen_for_commands(data, start, end):
             listen_for_commands.counter = 0
 
     command_name = "command" + str(listen_for_commands.counter) + ".wav"
-    save_file(command_name, data)
+    save_wave_file(command_name, data, samplerate=asource.get_sampling_rate(),
+                   sample_width=asource.get_sample_width(),
+                   channels=asource.get_channels())
     threading.Thread(target=handle_command, args=(command_name,)).start()
 
     log("Waiting for command.")
     listen_for_commands.counter += 1
-
-
-def save_file(filename, data):
-    wave_file = wave.open(filename, 'wb')
-    wave_file.setnchannels(1)
-    wave_file.setsampwidth(asource.get_sample_width())
-    wave_file.setframerate(16000)
-    wave_file.writeframes(b''.join(data))
-    wave_file.close()
 
 
 if __name__=="__main__":
@@ -48,7 +41,8 @@ if __name__=="__main__":
     handler = CommandHandler()
 
     # Auditok utilities:
-    asource = ADSFactory.ads(sampling_rate=16000, sample_width=2, channels=1, frames_per_buffer=512, record=False, block_dur=0.01)
+    asource = ADSFactory.ads(sampling_rate=16000, sample_width=2, channels=1,
+                             frames_per_buffer=512, record=False, block_dur=0.01)
     validator = AudioEnergyValidator(sample_width=asource.get_sample_width(), energy_threshold=50)
     tokenizer = StreamTokenizer(validator=validator, min_length=100, max_length=500, max_continuous_silence=30)
 
