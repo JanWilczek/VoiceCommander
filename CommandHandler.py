@@ -74,6 +74,10 @@ class CommandHandler:
         elif command == "yoda":
             app = Application(backend='uia')
             app.start(self.chrome_path + ' --force-renderer-accessibility https://youtu.be/bYRYHLUNEs4?t=18')
+        elif command == "private_browsing":
+            app = Application(backend='uia')
+            app.start(self.chrome_path + ' --force-renderer-accessibility https://www.youtube.com/watch?v=x6QZn9xiuOE')
+            SendKeys('^+n')
         else:
             raise NotImplementedError('Unknown command!')
 

@@ -8,27 +8,28 @@ tag-format <semantics/1.0-literals>;
 $root = $action [$program] [$courtesy];
 
 
-$action =   (włącz | odpal | puść ){run}|
-            rozpocznij {begin}|
-            góra {up} |
-            dół {down} |
-            przejdź na {go to} |
-            zaznacz {select} |
+$action =   (włącz | odpal | puść | otwórz | uruchom){run}|
+            wyżej {up} |
+            niżej {down} |
+            góra {home} |
+            (zaznacz | zaznacz wszystko) {select_all} |
             (kopiuj | skopiuj) {copy} |
             wklej {paste} |
             zapisz {save} |
             cofnij {undo} |
-            zgoogluje {google_action} |
+            (zgoogluj | sprawdź w google) {google} |
             zamknij {close} |
-            dyktuj {dictate} |
-            czy joda był żydem {yoda};
+            (pokaż pulpit | wróć na pulpit | pulpit) {desktop}
+            (dyktuj | rozpocznij dyktowanie) {dictate} |
+            czy joda był żydem {yoda} |
+            przegądanie prywatne {private_browsing};
 
 
 $program =  (opera | operę) {opera} |
             (chrome | chroma) {chrome} |
             edge {edge} |
-            google {google} |
-            notatnik {notepad};
+            (notatnik | dokument tekstowy) {notepad};
+            przegądanie prywatne {private_browsing};
 
 
 $courtesy = proszę;
