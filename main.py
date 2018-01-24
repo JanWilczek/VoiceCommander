@@ -7,6 +7,7 @@ from logger import log
 from wave_utils import save_wave_file
 from os import remove
 import threading
+import glob
 
 
 def handle_command(filename):
@@ -36,6 +37,10 @@ def listen_for_commands(data, start, end):
 
 
 if __name__=="__main__":
+
+    # Delete all .wav files
+    for file in glob.glob("*.wav"):
+        remove(file)
 
     # Command utilities:
     handler = CommandHandler()

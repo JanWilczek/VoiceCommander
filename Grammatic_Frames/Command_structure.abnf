@@ -8,19 +8,24 @@ tag-format <semantics/1.0-literals>;
 $root = $action [$program] [$courtesy];
 
 
-$action =   (włącz | odpal | puść | otwórz | uruchom){run}|
-            wyżej {up} |
-            niżej {down} |
+$action =   (włącz | odpal | puść | otwórz | uruchom) {run} |
+            ([(przesuń | podjedź)] (w górę | wyżej)) {up} |
+            ([(przesuń | zjedź)] (w dół | niżej)) {down} |
+            (enter | okej | zatwierdź) {enter} |
+            (wyszukaj | znajdź) [na stronie] {find} |
             góra {home} |
             (zaznacz | zaznacz wszystko) {select_all} |
             (kopiuj | skopiuj) {copy} |
+            (następne | zmień) okno {next_window} |
             wklej {paste} |
             zapisz {save} |
             cofnij {undo} |
-            (zgoogluj | sprawdź w google) {google} |
+            (zgugluj | sprawdź w gugle) {google} |
+            (jutub | jutjub | jutube) {youtube} |
             zamknij {close} |
-            (pokaż pulpit | wróć na pulpit | pulpit) {desktop}
+            (pokaż pulpit | wróć na pulpit | pulpit) {desktop} |
             (dyktuj | rozpocznij dyktowanie) {dictate} |
+            zakończ nasłuch {end_commander} |
             czy joda był żydem {yoda} |
             przegądanie prywatne {private_browsing};
 
@@ -29,7 +34,6 @@ $program =  (opera | operę) {opera} |
             (chrome | chroma) {chrome} |
             edge {edge} |
             (notatnik | dokument tekstowy) {notepad};
-            przegądanie prywatne {private_browsing};
 
 
 $courtesy = proszę;

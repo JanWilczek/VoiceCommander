@@ -29,6 +29,7 @@ def print_results(responses):
             transcript = " ".join([word.transcript for word in res.words])
             log("[{}.] {} /{}/ ({})".format(n, transcript, res.semantic_interpretation, res.confidence))
 
+
 def print_again(responses):
     info = ["NO_MATCH", 0]
     confidence = 0

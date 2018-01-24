@@ -5,7 +5,7 @@ from CommandRecorder import CommandRecorder
 from dictate import interpret_dication
 from logger import log
 from win32api import GetCursorPos
-from os import remove
+from os import remove, _exit
 
 
 class CommandHandler:
@@ -34,21 +34,20 @@ class CommandHandler:
             dictation_recorder.record_for_seconds(filename=filename, record_seconds=10)
             log("Dictation ended.")
             transcription = interpret_dication(filename)
-            '''
-            app = Application(backend='uia')    # Unfortunately using notepad doesn't work during parallel tokenizing
-            app.start(self.notepad_path)        # For other usages the commented code is valid.
-            app.Dialog.Edit.type_keys(transcription, with_spaces=True)
-            '''
             log("Transcription: ", transcription)
             remove(filename)
+        elif command == "enter":
+            SendKeys('{ENTER}')
         elif command == "home":
             SendKeys('{HOME}')
         elif command == "desktop":
             SendKeys('{LWIN}d')  # does it work?
+        elif command == "next_window":
+            SendKeys('%{ESC}')
         elif command == "up":
-            scroll(coords=GetCursorPos(), wheel_dist=10)
+            scroll(coords=GetCursorPos(), wheel_dist=7)
         elif command == "down":
-            scroll(coords=GetCursorPos(), wheel_dist=-10)
+            scroll(coords=GetCursorPos(), wheel_dist=-7)
         elif command == "select_all":
             SendKeys('^a')
         elif command == "copy":
@@ -57,20 +56,36 @@ class CommandHandler:
             SendKeys('^v')
         elif command == "save":
             SendKeys('^s')
-            if args is not None:
-                SendKeys(str(args[0]) + '{ENTER}')
         elif command == "undo":
             SendKeys('^z')
+        elif command == "find":
+            SendKeys('^f')
+            keyword_recorder = CommandRecorder()
+            filename = "keyword.wav"
+            log("What to find?")
+            keyword_recorder.record_for_seconds(filename=filename, record_seconds=2)
+            keyword = interpret_dication(filename)
+            log("Szukam ", keyword)
+            SendKeys(keyword[1:len(keyword) - 1] + '{ENTER}', with_spaces=True)
+            remove(filename)
         elif command == "google":     # WIP
-             app = Application(backend='uia')
-             app.start(self.chrome_path + ' --force-renderer-accessibility https://www.google.com')
-             #SendKeys("google.com{ENTER}")
-             if args is not None:
-                app_new_tab = Application(backend='uia').connect(path='chrome.exe', title_re='New Tab')
-                #app_new_tab.window().type_keys(str(args[0]) + '{ENTER}')
-                SendKeys(str(args[0]) + '{ENTER}')
+            app = Application(backend='uia')
+            app.start(self.chrome_path + ' --force-renderer-accessibility https://www.google.com')
+            keyword_recorder = CommandRecorder()
+            filename = "keyword.wav"
+            log("What to google?")
+            keyword_recorder.record_for_seconds(filename=filename, record_seconds=3)
+            keyword = interpret_dication(filename)
+            log("Googling ", keyword)
+            SendKeys(keyword[1:len(keyword)-1] + '{ENTER}', with_spaces=True)
+            remove(filename)
+        elif command == "youtube":
+            app = Application(backend='uia')
+            app.start(self.chrome_path + ' --force-renderer-accessibility https://www.youtube.com')
         elif command == "close":
             SendKeys('%{F4}')
+        elif command == "end_commander":
+            _exit(0)
         elif command == "yoda":
             app = Application(backend='uia')
             app.start(self.chrome_path + ' --force-renderer-accessibility https://youtu.be/bYRYHLUNEs4?t=18')
@@ -78,6 +93,8 @@ class CommandHandler:
             app = Application(backend='uia')
             app.start(self.chrome_path + ' --force-renderer-accessibility https://www.youtube.com/watch?v=x6QZn9xiuOE')
             SendKeys('^+n')
+            SendKeys('chicks' + '{ENTER}', with_spaces=True)
+            log("Have fun!")
         else:
             raise NotImplementedError('Unknown command!')
 
