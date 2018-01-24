@@ -48,6 +48,10 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-# IPython Jupyter Notebook checkpoints
+# IPython Jupyter Notebook checkpoints and files
 .ipynb_checkpoints
 Gantt chart.xlsx
+
+# pycache files
+*.pyc
+*.pyo
