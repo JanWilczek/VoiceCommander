@@ -2,7 +2,11 @@ from pywinauto.application import Application
 from pywinauto.keyboard import SendKeys
 from pywinauto.mouse import scroll
 from CommandRecorder import CommandRecorder
+from dictate import interpret_dication
+from logger import log
 from win32api import GetCursorPos
+from os import remove
+
 
 class CommandHandler:
 
@@ -23,12 +27,20 @@ class CommandHandler:
 
         if command == "run":
             self.__execute(args)
-        elif command == "start_dictation":    # not implemented
-            raise NotImplementedError('Dictation not implemented')
+        elif command == "dictate":
             dictation_recorder = CommandRecorder()
-            dictation_recorder.record_for_seconds(filename="dictation.wav", record_seconds=-1)
-            begin_dictation()
-            # additional code
+            filename = "dictation.wav"
+            log("Listening to dictation...")
+            dictation_recorder.record_for_seconds(filename=filename, record_seconds=10)
+            log("Dictation ended.")
+            transcription = interpret_dication(filename)
+            '''
+            app = Application(backend='uia')    # Unfortunately using notepad doesn't work during parallel tokenizing
+            app.start(self.notepad_path)        # For other usages the commented code is valid.
+            app.Dialog.Edit.type_keys(transcription, with_spaces=True)
+            '''
+            log("Transcription: ", transcription)
+            remove(filename)
         elif command == "home":
             SendKeys('{HOME}')
         elif command == "desktop":

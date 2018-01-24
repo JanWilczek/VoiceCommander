@@ -52,6 +52,7 @@ def print_again(responses):
     info[1] = confidence
     return info
 
+
 def recognize(filename):
     ap = AddressProvider()
     wave_file = filename
@@ -69,7 +70,10 @@ def recognize(filename):
 
     tmp = print_again(results)
     semantic = tmp[0]
-    log(semantic + " :Sarmata ")
+    if semantic == "NO_MATCH":
+        log("Unrecognized command.")
+    else:
+        log("Recognized command: ", semantic)
 
     result = semantic.split(" ")
     if len(result) == 1:

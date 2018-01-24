@@ -20,6 +20,7 @@ $action =   (włącz | odpal | puść ){run}|
             cofnij {undo} |
             zgoogluje {google_action} |
             zamknij {close} |
+            dyktuj {dictate} |
             czy joda był żydem {yoda};
 
 

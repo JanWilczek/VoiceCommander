@@ -31,8 +31,8 @@ def listen_for_commands(data, start, end):
                    channels=asource.get_channels())
     threading.Thread(target=handle_command, args=(command_name,)).start()
 
-    log("Waiting for command.")
     listen_for_commands.counter += 1
+    log("Waiting for a command...")
 
 
 if __name__=="__main__":
@@ -49,6 +49,7 @@ if __name__=="__main__":
     asource.open()
 
     # Main program loop
+    log("Waiting for a command...")
     tokenizer.tokenize(asource, callback=listen_for_commands)
 
 

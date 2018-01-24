@@ -1,6 +1,5 @@
 import pyaudio
-import wave
-
+from wave_utils import save_wave_file
 
 
 class CommandRecorder:
@@ -18,7 +17,6 @@ class CommandRecorder:
         stream = audio.open(format=self.FORMAT, channels=self.CHANNELS,
                             rate=self.RATE, input=True,
                             frames_per_buffer=self.CHUNK)
-        print("recording...")
         frames = []
 
         if record_seconds > 0:
@@ -33,16 +31,10 @@ class CommandRecorder:
             except KeyboardInterrupt:
                 pass
 
-        print("finished recording")
-
         # stop Recording
         stream.stop_stream()
         stream.close()
         audio.terminate()
 
-        waveFile = wave.open(filename, 'wb')
-        waveFile.setnchannels(self.CHANNELS)
-        waveFile.setsampwidth(audio.get_sample_size(self.FORMAT))
-        waveFile.setframerate(self.RATE)
-        waveFile.writeframes(b''.join(frames))
-        waveFile.close()
+        save_wave_file(filename, frames, channels=self.CHANNELS, sample_width=audio.get_sample_size(self.FORMAT), samplerate=self.RATE)
+
